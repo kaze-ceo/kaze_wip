@@ -10,26 +10,28 @@ class MusicPlayer extends StatefulWidget {
 
 class _MusicPlayerState extends State<MusicPlayer> {
   final AudioPlayer _audioPlayer = AudioPlayer();
-  List<String> _selfLoveSongs = [
-    'music/Bensley - Burn It Up.mp3',
-    'song2.mp3',
-    'song3.mp3',
+  final List<String> _selfLoveSongs = [
+  'music/FATESKY & Aftermarket - Redemption.mp3',
+     'music/Hamdi & Princess Superstar - Counting (Simula Remix).mp3',
+     'music/Midnight CVLT - Better Days.mp3',
   ];
-  List<String> _selfLossSongs = [
-    'song4.mp3',
-    'song5.mp3',
-    'song6.mp3', 
+  final List<String> _selfLossSongs = [
+  'music/FATESKY & Aftermarket - Redemption.mp3',
+   'music/Hamdi & Princess Superstar - Counting (Simula Remix).mp3',
+   'music/Midnight CVLT - Better Days.mp3',
   ];
   late String _currentSong;
 
   void _playSelfLoveSong() {
     _currentSong = _selfLoveSongs[Random().nextInt(_selfLoveSongs.length)];
-    _audioPlayer.play(_currentSong as Source, isLocal: true);
+   _audioPlayer.setSource(_currentSong as Source);
+   _audioPlayer.resume();
   }
 
   void _playSelfLossSong() {
     _currentSong = _selfLossSongs[Random().nextInt(_selfLossSongs.length)];
-    _audioPlayer.play(_currentSong as Source, isLocal: true);
+    _audioPlayer.setSource(_currentSong as Source);
+    _audioPlayer.resume();
   }
 
   @override

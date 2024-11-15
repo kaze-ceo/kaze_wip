@@ -18,15 +18,20 @@ class _MeditationPageState extends State<MeditationPage> {
     'music/Hamdi & Princess Superstar - Counting (Simula Remix).mp3',
     'music/Midnight CVLT - Better Days.mp3',
   ];
-  String _currentMusic = '';
   int _timer = 0;
   // ignore: unused_field
   bool _isPlaying = false;
 
+  AudioPlayer _currentPlayer = AudioPlayer();
+  String? _currentMusic;
+
   void _playMusic() async {
-    _currentMusic = _musicList[Random().nextInt(_musicList.length)];
-    await _audioPlayer.play(_currentMusic);
-    _isPlaying = true;
+    final newMusic = _musicList[Random().nextInt(_musicList.length)];
+    if (_currentMusic == newMusic) return;
+    _currentMusic = newMusic;
+    await _currentPlayer.stop();
+    await _currentPlayer.setSource(AssetSource(_currentMusic!));
+    await _currentPlayer.resume();
   }
 
   void _stopMusic() async {

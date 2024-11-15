@@ -31,11 +31,16 @@ class _RegistrationPageState extends State<RegistrationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Registration Page'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
+
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/background_image.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Padding(  
+      padding: const EdgeInsets.all(9.0),
         child: Form(
           key: _formKey,
           child: Column(
@@ -86,6 +91,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
           ),
         ),
       ),
+    ),
     );
   }
 }
