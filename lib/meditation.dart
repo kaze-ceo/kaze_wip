@@ -2,7 +2,6 @@
 
 import 'dart:async';
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 
@@ -41,7 +40,7 @@ class _MeditationPageState extends State<MeditationPage> {
 
   void _startTimer() {
     _timer = 0;
-    Timer.periodic(Duration(seconds: 1), (timer) {
+    Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         _timer++;
       });
@@ -62,27 +61,37 @@ class _MeditationPageState extends State<MeditationPage> {
         title: Text('Meditation'),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              '$_timer seconds',
-              style: TextStyle(fontSize: 48),
+        child: Container(
+          alignment: Alignment.center,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(''),
+              fit: BoxFit.cover,
             ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                _stopMusic();
-                Navigator.pop(context);
-              },
-              child: Text('End Meditation'),
-              style: ElevatedButton.styleFrom(
-                minimumSize: Size(200, 50),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                '$_timer seconds',
+                style: TextStyle(fontSize: 48),
               ),
-            ),
-          ],
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  _stopMusic();
+                  if (Navigator.canPop(context)) Navigator.pop(context);
+                },
+                child: Text('End Meditation'),
+                style: ElevatedButton.styleFrom(
+                  minimumSize: Size(200, 50),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
+
 }

@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 
@@ -10,28 +8,29 @@ class MusicPlayer extends StatefulWidget {
 
 class _MusicPlayerState extends State<MusicPlayer> {
   final AudioPlayer _audioPlayer = AudioPlayer();
-  final List<String> _selfLoveSongs = [
-  'music/FATESKY & Aftermarket - Redemption.mp3',
-     'music/Hamdi & Princess Superstar - Counting (Simula Remix).mp3',
-     'music/Midnight CVLT - Better Days.mp3',
-  ];
-  final List<String> _selfLossSongs = [
-  'music/FATESKY & Aftermarket - Redemption.mp3',
-   'music/Hamdi & Princess Superstar - Counting (Simula Remix).mp3',
-   'music/Midnight CVLT - Better Days.mp3',
-  ];
-  late String _currentSong;
+  // ignore: unused_field
+  final String _currentSong = '';
+  bool _isPlaying = false;
 
-  void _playSelfLoveSong() {
-    _currentSong = _selfLoveSongs[Random().nextInt(_selfLoveSongs.length)];
-   _audioPlayer.setSource(_currentSong as Source);
-   _audioPlayer.resume();
+  void _playSong() {
+    _audioPlayer.play('assets/music/Bensley - Burn It Up.mp3' as Source);
+    setState(() {
+      _isPlaying = true;
+    });
   }
 
-  void _playSelfLossSong() {
-    _currentSong = _selfLossSongs[Random().nextInt(_selfLossSongs.length)];
-    _audioPlayer.setSource(_currentSong as Source);
-    _audioPlayer.resume();
+  void _pauseSong() {
+    _audioPlayer.pause();
+    setState(() {
+      _isPlaying = false;
+    });
+  }
+
+  void _stopSong() {
+    _audioPlayer.stop();
+    setState(() {
+      _isPlaying = false;
+    });
   }
 
   @override
@@ -45,14 +44,21 @@ class _MusicPlayerState extends State<MusicPlayer> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
-              onPressed: _playSelfLoveSong,
-              child: Text('Self Love'),
+              onPressed: _playSong,
+              child: Text('Play'),
             ),
             SizedBox(height: 20),
             ElevatedButton(
-              onPressed: _playSelfLossSong,
-              child: Text('Self Loss'),
+              onPressed: _pauseSong,
+              child: Text('Pause'),
             ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: _stopSong,
+              child: Text('Stop'),
+            ),
+            SizedBox(height: 20),
+            Text(_isPlaying ? 'Playing' : 'Not Playing'),
           ],
         ),
       ),
