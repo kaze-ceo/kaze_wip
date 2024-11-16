@@ -33,9 +33,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
     return Scaffold(
 
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/background_image.jpg'),
+            image: AssetImage('assets/photos/background_photo.jpg'),
             fit: BoxFit.cover,
           ),
         ),
