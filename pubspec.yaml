@@ -18,3 +18,10 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  assets:
+  - assets/music/123.mp3
+  - assets/photos/background_photo.png
+  - assets/photos/play.png
+
+

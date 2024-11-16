@@ -12,10 +12,10 @@ class MeditationPage extends StatefulWidget {
 
 class _MeditationPageState extends State<MeditationPage> {
   final AudioPlayer _audioPlayer = AudioPlayer();
-  final List<String> _musicList = [
-    'music/FATESKY & Aftermarket - Redemption.mp3',
-    'music/Hamdi & Princess Superstar - Counting (Simula Remix).mp3',
-    'music/Midnight CVLT - Better Days.mp3',
+  List<String> get _musicList => [
+    'music/123.mp3',
+    'music/123.mp3',
+    'music/123.mp3',
   ];
   int _timer = 0;
   // ignore: unused_field
@@ -34,17 +34,24 @@ class _MeditationPageState extends State<MeditationPage> {
   }
 
   void _stopMusic() async {
-    await _audioPlayer.stop();
+    _audioPlayer.stop();
     _isPlaying = false;
   }
 
+  Timer? _timerInstance;
+
   void _startTimer() {
-    _timer = 0;
-    Timer.periodic(const Duration(seconds: 1), (timer) {
+    _timerInstance = Timer.periodic(const Duration(milliseconds: 100), (timer) {
       setState(() {
-        _timer++;
+        _timer = DateTime.now().millisecondsSinceEpoch ~/ 1000;
       });
     });
+  }
+
+  @override
+  void dispose() {
+    _timerInstance?.cancel();
+    super.dispose();
   }
 
   @override
@@ -58,37 +65,34 @@ class _MeditationPageState extends State<MeditationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Meditation'),
+        title: const Text('Meditation'),
       ),
-      body: Center(
-        child: Container(
-          alignment: Alignment.center,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(''),
-              fit: BoxFit.cover,
+      body: Container(
+        alignment: Alignment.center,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(''),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Text(
+              '$_timer seconds',
+              style: const TextStyle(fontSize: 48),
             ),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                '$_timer seconds',
-                style: TextStyle(fontSize: 48),
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  _stopMusic();
-                  if (Navigator.canPop(context)) Navigator.pop(context);
-                },
-                child: Text('End Meditation'),
-                style: ElevatedButton.styleFrom(
-                  minimumSize: Size(200, 50),
-                ),
-              ),
-            ],
-          ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                _stopMusic();
+                Navigator.maybePop(context);
+              },
+              style: ElevatedButton.styleFrom(minimumSize: const Size(200, 50)),
+              child: const Text('End Meditation'),
+            ),
+          ],
         ),
       ),
     );

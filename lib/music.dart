@@ -2,18 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 
 class MusicPlayer extends StatefulWidget {
+  const MusicPlayer({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _MusicPlayerState createState() => _MusicPlayerState();
 }
 
 class _MusicPlayerState extends State<MusicPlayer> {
   final AudioPlayer _audioPlayer = AudioPlayer();
   // ignore: unused_field
-  final String _currentSong = '';
+  final String _currentSong = 'assets/music/123.mp3';
   bool _isPlaying = false;
 
   void _playSong() {
-    _audioPlayer.play('assets/music/Bensley - Burn It Up.mp3' as Source);
+    _audioPlayer.setSource(AssetSource(_currentSong!));
+    _audioPlayer.resume();    
     setState(() {
       _isPlaying = true;
     });
@@ -37,7 +41,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Music Player'),
+        title: const Text('Radio Lo-Fi'),
       ),
       body: Center(
         child: Column(
@@ -45,19 +49,16 @@ class _MusicPlayerState extends State<MusicPlayer> {
           children: [
             ElevatedButton(
               onPressed: _playSong,
-              child: Text('Play'),
+              child: Image.asset('assets/photos/play.mp3'),
             ),
-            SizedBox(height: 20),
             ElevatedButton(
               onPressed: _pauseSong,
-              child: Text('Pause'),
+              child: Image.asset('assets/photos/play.mp3'),
             ),
-            SizedBox(height: 20),
             ElevatedButton(
               onPressed: _stopSong,
-              child: Text('Stop'),
+              child: Image.asset('assets/photos/play.mp3'),
             ),
-            SizedBox(height: 20),
             Text(_isPlaying ? 'Playing' : 'Not Playing'),
           ],
         ),

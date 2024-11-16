@@ -1,97 +1,133 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/menu.dart';
 
-void main() {
-  runApp(const MyApp());
+class LoadingPage extends StatefulWidget {
+  @override
+  _LoadingPageState createState() => _LoadingPageState();
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+class _LoadingPageState extends State<LoadingPage> {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: RegistrationPage(),
-    );
+  void initState() {
+    super.initState();
+    Timer(Duration(seconds: 3), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => RegistrationPage()),
+      );
+    });
   }
-}
-
-class RegistrationPage extends StatefulWidget {
-  @override
-  _RegistrationPageState createState() => _RegistrationPageState();
-}
-
-class _RegistrationPageState extends State<RegistrationPage> {
-  final _formKey = GlobalKey<FormState>();
-  // ignore: unused_field
-  String _login = '';
-  // ignore: unused_field
-  String _password = '';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/photos/background_photo.jpg'),
+            image: AssetImage('assets/photos/background_photo.png'),
             fit: BoxFit.cover,
           ),
         ),
-        child: Padding(  
-      padding: const EdgeInsets.all(9.0),
-        child: Form(
-          key: _formKey,
+        child: const Center(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Login',
-                  border: OutlineInputBorder(),
+              Text(
+                'Loading...',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
                 ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Please enter a login';
-                  }
-                  return null;
-                },
-                onSaved: (value) => _login = value!,
-              ),
-              const SizedBox(height: 20),
-              TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Password',
-                  border: OutlineInputBorder(),
-                ),
-                obscureText: true,
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Please enter a password';
-                  }
-                  return null;
-                },
-                onSaved: (value) => _password = value!,
-              ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    _formKey.currentState!.save();
-                    print('Registration successful!');
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => MainMenu()),
-                    );
-                  }
-                },
-                child: Text('REGISTER'),
               ),
             ],
           ),
         ),
       ),
-    ),
     );
   }
 }
+
+class RegistrationPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Registration'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.black.withOpacity(0.5),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: TextFormField(
+                decoration: InputDecoration(
+                  hintText: 'Login',
+                  border: InputBorder.none,
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+            SizedBox(height: 20),
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.black.withOpacity(0.5),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: TextFormField(
+                obscureText: true,
+                decoration: InputDecoration(
+                  hintText: 'Password',
+                  border: InputBorder.none,
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MainMenu()),
+                );
+              },
+              child: Text('Login'),
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.black, backgroundColor: Colors.white,
+                minimumSize: Size(200, 50),
+              ),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MainMenu()),
+                );
+              },
+              child: Text('Register'),
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.black, backgroundColor: Colors.white)
+            ),
+          ],
+        ),  
+      ),
+    );
+  } 
+}
+               
