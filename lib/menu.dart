@@ -25,61 +25,69 @@ class _MainMenuState extends State<MainMenu> {
       appBar: AppBar(
         title: Text('Main Menu'),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => MusicPlayer()),
-                );
-              },
-              child: Text('Radio'),
-              style: ElevatedButton.styleFrom(
-                minimumSize: Size(200, 100),
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/photos/background_photo.png'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MusicPlayer()),
+                  );
+                },
+                child: Text('Radio'),
+                style: ElevatedButton.styleFrom(
+                  minimumSize: Size(200, 100),
+                ),
               ),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => MeditationPage()),
-                );
-              },
-              child: Text('Meditation'),
-              style: ElevatedButton.styleFrom(
-                minimumSize: Size(200, 100),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MeditationPage()),
+                  );
+                },
+                child: Text('Meditation'),
+                style: ElevatedButton.styleFrom(
+                  minimumSize: Size(200, 100),
+                ),
               ),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ToDoNotesList()),
-                );
-              },
-              child: Text('Notes'),
-              style: ElevatedButton.styleFrom(
-                minimumSize: Size(200, 100),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ToDoNotesList()),
+                  );
+                },
+                child: Text('Notes'),
+                style: ElevatedButton.styleFrom(
+                  minimumSize: Size(200, 100),
+                ),
               ),
-            ),
-            SizedBox(height: 20),
-            Text(
-              'Streak: $_streak days',
-              style: TextStyle(fontSize: 24),
-            ),
-            ElevatedButton(
-              onPressed: _incrementStreak,
-              child: Text('Increment Streak'),
-              style: ElevatedButton.styleFrom(
-                minimumSize: Size(200, 50),
+              SizedBox(height: 20),
+              Text(
+                'Streak: $_streak days',
+                style: TextStyle(fontSize: 24),
               ),
-            ),
-          ],
+              ElevatedButton(
+                onPressed: _incrementStreak,
+                child: Text('Increment Streak'),
+                style: ElevatedButton.styleFrom(
+                  minimumSize: Size(200, 50),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

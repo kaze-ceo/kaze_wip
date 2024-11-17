@@ -16,7 +16,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
   bool _isPlaying = false;
 
   void _playSong() {
-    _audioPlayer.setSource(AssetSource(_currentSong!));
+    _audioPlayer.setSource(AssetSource(_currentSong));
     _audioPlayer.resume();    
     setState(() {
       _isPlaying = true;
@@ -43,24 +43,32 @@ class _MusicPlayerState extends State<MusicPlayer> {
       appBar: AppBar(
         title: const Text('Radio Lo-Fi'),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: _playSong,
-              child: Image.asset('assets/photos/play.mp3'),
-            ),
-            ElevatedButton(
-              onPressed: _pauseSong,
-              child: Image.asset('assets/photos/play.mp3'),
-            ),
-            ElevatedButton(
-              onPressed: _stopSong,
-              child: Image.asset('assets/photos/play.mp3'),
-            ),
-            Text(_isPlaying ? 'Playing' : 'Not Playing'),
-          ],
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/photos/background_photo.png'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                onPressed: _playSong,
+                child: Image.asset('assets/photos/play.png'),
+              ),
+              ElevatedButton(
+                onPressed: _pauseSong,
+                child: Image.asset('assets/photos/play.png'),
+              ),
+              ElevatedButton(
+                onPressed: _stopSong,
+                child: Image.asset('assets/photos/play.png'),
+              ),
+              Text(_isPlaying ? 'Playing' : 'Not Playing'),
+            ],
+          ),
         ),
       ),
     );
